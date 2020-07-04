@@ -2,7 +2,12 @@ plugins {
 	id 'org.springframework.boot' version '2.3.1.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+	id "org.sonarqube" version "2.7.1"
+	id "jacoco"
 }
+
+// For applying checkstyle configuration
+apply plugin: 'checkstyle'
 
 group = 'com.logicalsapien'
 version = '0.0.1-SNAPSHOT'
@@ -32,3 +37,32 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+		html.enabled true
+		csv.enabled false
+	}
+	afterEvaluate {
+		classDirectories.setFrom(files(classDirectories.files.collect {
+			fileTree(dir: it, excludes: ['**/com/logicalsapien/ukrem/UkremApplication**'])
+		}))
+	}
+}
+
+//For configuring checkstyle
+checkstyle {
+	toolVersion '8.26'
+	configFile file("config/checkstyle/checkstyle.xml")
+}
+
+//For configuring sonarqube
+sonarqube {
+	properties {
+		property "sonar.projectKey", "LogicalSapien_ukrem"
+		property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+		property "sonar.coverage.exclusions", "src/main/java/com/logicalsapien/ukrem/UkremApplication.java"
+	}
+}
+

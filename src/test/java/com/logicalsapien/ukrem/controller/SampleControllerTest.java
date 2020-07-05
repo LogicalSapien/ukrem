@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Sample Controller Tests.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SampleControllerTest {
+class SampleControllerTest {
 
   /**
    * To bind the Random Port.
@@ -37,7 +37,7 @@ public class SampleControllerTest {
    * @throws Exception exception
    */
   @Test
-  public void listAllPlanetsTest() throws Exception {
+  void listAllPlanetsTest() throws Exception {
 
     ResponseEntity<String> response = restTemplate.getForEntity(
             new URL("http://localhost:" + port + "/api/sample").toString(), String.class);

@@ -63,6 +63,7 @@ sonarqube {
 		property "sonar.projectKey", "LogicalSapien_ukrem"
 		property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
 		property "sonar.coverage.exclusions", "src/main/java/com/logicalsapien/ukrem/UkremApplication.java"
+		property "sonar.exclusions", "src/java/test/**"
 	}
 }
 
